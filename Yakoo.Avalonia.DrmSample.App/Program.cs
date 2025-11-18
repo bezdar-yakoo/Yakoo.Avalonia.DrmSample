@@ -1,5 +1,7 @@
-﻿using System;
-using Avalonia;
+﻿using Avalonia;
+using Avalonia.DrmKit;
+using Avalonia.ReactiveUI;
+using System;
 
 namespace Yakoo.Avalonia.DrmSample.App
 {
@@ -14,9 +16,13 @@ namespace Yakoo.Avalonia.DrmSample.App
 
         // Avalonia configuration, don't remove; also used by visual designer.
         public static AppBuilder BuildAvaloniaApp()
-            => AppBuilder.Configure<App>()
-                .UsePlatformDetect()
-                .WithInterFont()
-                .LogToTrace();
+         => AppBuilder.Configure<App>()
+             .UsePlatformDetect()
+             .WithInterFont()
+             .LogToTrace()
+             .UseReactiveUI()
+             .UseDrmSoftCursor()
+             .UseLinuxKeyboardListener()
+             .UseEvdevMouseFallback();
     }
 }

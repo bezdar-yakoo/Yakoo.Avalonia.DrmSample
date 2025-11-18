@@ -1,0 +1,1 @@
+./Yakoo.Avalonia.DrmSample.App

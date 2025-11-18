@@ -17,6 +17,10 @@ namespace Yakoo.Avalonia.DrmSample.App
             {
                 desktop.MainWindow = new MainWindow();
             }
+            else if (ApplicationLifetime is ISingleViewApplicationLifetime single)
+            {
+                single.MainView = new MainView();
+            }
 
             base.OnFrameworkInitializationCompleted();
         }

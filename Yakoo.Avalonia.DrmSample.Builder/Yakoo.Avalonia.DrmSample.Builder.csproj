@@ -1,0 +1,64 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	  <TargetFramework>net8.0</TargetFramework>
+	  <ImplicitUsings>enable</ImplicitUsings>
+	  <Nullable>enable</Nullable>
+	  <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+	  <AssemblyName>Yakoo.Avalonia.DrmSample.Builder</AssemblyName>
+	  <BaseBuildDir>C:\Users\Public\Documents\drmsamplebuild</BaseBuildDir>
+	  <Configurations>Debug;Release</Configurations>
+	  <RuntimeIdentifiers>win-x64;linux-x64</RuntimeIdentifiers>
+	  <!-- Укажите ваш пароль здесь -->
+	  <ZipPassword>123</ZipPassword>
+	  <!-- Путь к 7z.exe (измените если установлен в другом месте) -->
+	  <SevenZipPath>C:\Program Files\7-Zip\7z.exe</SevenZipPath>
+	  <RuntimeIdentifier>linux-x64</RuntimeIdentifier>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Yakoo.Avalonia.DrmSample.App\Yakoo.Avalonia.DrmSample.App.csproj" />
+    <ProjectReference Include="..\Yakoo.Avalonia.DrmSample.Utility\Yakoo.Avalonia.DrmSample.Utility.csproj" />
+  </ItemGroup>
+
+	<Target Name="GetAvaloniaAssemblyVersion" BeforeTargets="PublishProjects">
+		<PropertyGroup>
+			<AvaloniaAssemblyPath>..\Yakoo.Avalonia.DrmSample.App\bin\$(Configuration)\$(TargetFramework)\Yakoo.Avalonia.DrmSample.App.dll</AvaloniaAssemblyPath>
+		</PropertyGroup>
+		<GetAssemblyIdentity AssemblyFiles="$(AvaloniaAssemblyPath)">
+			<Output TaskParameter="Assemblies" ItemName="AvaloniaAssembly" />
+		</GetAssemblyIdentity>
+		<PropertyGroup>
+			<AssemblyVersion>%(AvaloniaAssembly.Version)</AssemblyVersion>
+			<ZipFileName>DrmSample-$(AssemblyVersion).zip</ZipFileName>
+			<ZipFilePath>$(BaseBuildDir)\$(ZipFileName)</ZipFilePath>
+			<!-- Полный путь теперь формируется ЗДЕСЬ -->
+			<FullPublishDir>$(BaseBuildDir)\$(AssemblyVersion)</FullPublishDir>
+		</PropertyGroup>
+	</Target>
+
+	<Target Name="PublishProjects" AfterTargets="Build">
+		<MSBuild Projects="..\Yakoo.Avalonia.DrmSample.App\Yakoo.Avalonia.DrmSample.App.csproj" Targets="Publish" Properties="PublishDir=$(FullPublishDir);Configuration=$(Configuration);RuntimeIdentifier=$(RuntimeIdentifier);PublishSingleFile=false" />
+		<MSBuild Projects="..\Yakoo.Avalonia.DrmSample.Utility\Yakoo.Avalonia.DrmSample.Utility.csproj" Targets="Publish" Properties="PublishDir=$(FullPublishDir);Configuration=$(Configuration);RuntimeIdentifier=$(RuntimeIdentifier);PublishSingleFile=false" />
+
+		<ItemGroup>
+			<!-- Добавляем файлы для удаления только если папка публикации уже есть -->
+			<FilesToDelete Include="$(FullPublishDir)\**\*.pdb" Condition="Exists('$(FullPublishDir)')" />
+			<FilesToDelete Include="$(FullPublishDir)\**\Microsoft.AspNetCore.*.dll" Condition="Exists('$(FullPublishDir)')" />
+		</ItemGroup>
+
+		<!-- Удаляем найденные файлы -->
+		<Delete Files="@(FilesToDelete)" ContinueOnError="true" />
+
+		<!-- Удаляем папку с нативными либами -->
+		<RemoveDir Directories="$(FullPublishDir)\runtimes\win-x64\native" Condition="Exists('$(FullPublishDir)\runtimes\win-x64\native')" ContinueOnError="true" />
+
+		<!-- Удаляем старый архив если существует -->
+		<Delete Files="$(ZipFilePath)" Condition="Exists('$(ZipFilePath)')" />
+
+		<!-- Создаем запароленный архив через 7z -->
+		<Exec Command="powershell -Command &quot;&amp; { &amp; '$(SevenZipPath)' a -tzip '$(ZipFilePath)' '$(FullPublishDir)\*' -p'$(ZipPassword)' -mx9 -aoa }&quot;" />
+
+	</Target>
+
+</Project>

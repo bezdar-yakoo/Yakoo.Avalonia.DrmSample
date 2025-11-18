@@ -1,0 +1,16 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 x:Class="Yakoo.Avalonia.DrmSample.App.MainView" 
+			 xmlns:vms="clr-namespace:Yakoo.Avalonia.DrmSample.App.ViewModels"
+			 xmlns:osk="clr-namespace:Avalonia.DrmKit.OnScreenKeyboard;assembly=Avalonia.DrmKit"
+			 x:DataType="vms:MainViewModel">
+	<StackPanel>
+		<TextBlock>Test</TextBlock>
+		<TextBox osk:KeyboardOverlay.IsEnabled="True"/>
+		<Button Command="{Binding UpdateCommand}" Content="Update"/>
+		<Button Command="{Binding GetFilesCommand}" Content="Get files"/>
+	</StackPanel>
+</UserControl>

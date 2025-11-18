@@ -1,0 +1,20 @@
+[Unit]
+Description=Kiosk Application
+After=graphical.target network.target
+Wants=graphical.target
+
+[Service]
+Type=simple
+WorkingDirectory=/usr/local/bin/kiosk/
+ExecStart=/usr/local/bin/kiosk/start.sh
+User=kiosk
+Environment="DISPLAY=:0"
+Environment="XAUTHORITY=/home/wbstand/.Xauthority"
+StandardOutput=append:/var/log/kiosk.log
+StandardError=append:/var/log/kiosk.errors.log
+Restart=on-failure
+RestartSec=5s
+KillMode=process
+
+[Install]
+WantedBy=graphical.target
