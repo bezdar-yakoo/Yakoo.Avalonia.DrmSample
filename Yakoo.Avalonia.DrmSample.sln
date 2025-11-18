@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36202.13 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yakoo.Avalonia.DrmSample.App", "Yakoo.Avalonia.DrmSample.App\Yakoo.Avalonia.DrmSample.App.csproj", "{2B5EAB6F-7715-417D-9260-67C2127183A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yakoo.Avalonia.DrmSample.Utility", "Yakoo.Avalonia.DrmSample.Utility\Yakoo.Avalonia.DrmSample.Utility.csproj", "{17106A5E-8EDE-4127-8913-D695A07A9353}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2B5EAB6F-7715-417D-9260-67C2127183A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B5EAB6F-7715-417D-9260-67C2127183A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B5EAB6F-7715-417D-9260-67C2127183A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B5EAB6F-7715-417D-9260-67C2127183A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17106A5E-8EDE-4127-8913-D695A07A9353}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17106A5E-8EDE-4127-8913-D695A07A9353}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17106A5E-8EDE-4127-8913-D695A07A9353}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17106A5E-8EDE-4127-8913-D695A07A9353}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {54D5F47B-CB89-42AC-81E4-541731D2A9DC}
+	EndGlobalSection
+EndGlobal
