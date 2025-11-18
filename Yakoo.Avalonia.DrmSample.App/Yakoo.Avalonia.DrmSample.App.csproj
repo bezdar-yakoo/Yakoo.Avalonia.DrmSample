@@ -27,4 +27,13 @@
   <ItemGroup>
     <Folder Include="Linux\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Linux\Kiosk.service">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="start.sh">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>
